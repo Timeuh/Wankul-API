@@ -36,33 +36,33 @@ model Description {
   citation      String    @default("")
   rarity_id     Int
   rarity        Rarity    @relation(fields: [rarity_id], references: [id])
-  card          Card[]
+  cards         Card[]
 }
 
 // represents a card character type (Laink, Terracid or Guest)
 model Character {
-  id          Int           @id @default(autoincrement())
-  name        String        @unique
-  description Description[]
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  descriptions Description[]
 }
 
 // represents the type of the card (Field or Character)
 model Type {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  card Card[]
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  cards Card[]
 }
 
 // represents the artist for a card illustration
 model Artist {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  card Card[]
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  cards Card[]
 }
 
 // represents a card rarity
 model Rarity {
-  id          Int           @id @default(autoincrement())
-  name        String        @unique
-  description Description[]
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  descriptions Description[]
 }
