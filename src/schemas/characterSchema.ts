@@ -3,7 +3,7 @@ const zodCh = require('zod');
 
 // create character schema
 const CharacterSchema = zodCh.object({
-  id: zodCh.number(),
+  id: zodCh.preprocess((id: string) => parseInt(id), zodCh.number().positive()),
   name: zodCh.string()
 });
 

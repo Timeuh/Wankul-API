@@ -3,7 +3,7 @@ const zodR = require('zod');
 
 // create rarity schema
 const RaritySchema = zodR.object({
-  id: zodR.number(),
+  id: zodR.preprocess((id: string) => parseInt(id), zodR.number().positive()),
   name: zodR.string()
 });
 
