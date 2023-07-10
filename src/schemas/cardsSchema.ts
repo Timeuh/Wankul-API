@@ -5,6 +5,7 @@ const zodC = require('zod');
 const CardSchema = zodC.object({
   artist_id: zodC.number(),
   collection: zodC.string(),
+  description_id: zodC.number(),
   id: zodC.number(),
   image: zodC.string(),
   name: zodC.string(),
