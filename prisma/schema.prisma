@@ -12,40 +12,31 @@ datasource db {
 
 // represents a card
 model Card {
-  id          Int         @id @default(autoincrement())
-  name        String
-  collection  String
-  card_2_desc Card2Desc[]
-  type_id     Int
-  type        Type        @relation(fields: [type_id], references: [id])
-  artist_id   Int
-  artist      Artist      @relation(fields: [artist_id], references: [id])
-  image       String
+  id             Int         @id @default(autoincrement())
+  name           String
+  collection     String
+  description_id Int
+  description    Description @relation(fields: [description_id], references: [id])
+  type_id        Int
+  type           Type        @relation(fields: [type_id], references: [id])
+  artist_id      Int
+  artist         Artist      @relation(fields: [artist_id], references: [id])
+  image          String
 }
 
 // description for each card
 model Description {
-  id            Int         @id @default(autoincrement())
-  winner_effect String      @default("")
-  looser_effect String      @default("")
-  special       String      @default("")
-  character_id  Int         @default(-1)
-  character     Character   @relation(fields: [character_id], references: [id])
-  effect        String      @default("")
-  citation      String      @default("")
+  id            Int       @id @default(autoincrement())
+  winner_effect String    @default("")
+  looser_effect String    @default("")
+  special       String    @default("")
+  character_id  Int       @default(-1)
+  character     Character @relation(fields: [character_id], references: [id])
+  effect        String    @default("")
+  citation      String    @default("")
   rarity_id     Int
-  rarity        Rarity      @relation(fields: [rarity_id], references: [id])
-  card_2_desc   Card2Desc[]
-}
-
-// joint table from card to description
-model Card2Desc {
-  card    Card        @relation(fields: [card_id], references: [id])
-  desc    Description @relation(fields: [desc_id], references: [id])
-  card_id Int
-  desc_id Int
-
-  @@id([card_id, desc_id])
+  rarity        Rarity    @relation(fields: [rarity_id], references: [id])
+  Card          Card[]
 }
 
 // represents a card character type (Laink, Terracid or Guest)
