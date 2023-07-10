@@ -1,0 +1,27 @@
+{
+  "name": "wankul-api",
+  "version": "1.0.0",
+  "description": "Api for Wankul cards display site (unofficial)",
+  "main": "src/index.ts",
+  "scripts": {
+    "server": "nodemon src/index.ts"
+  },
+  "keywords": [],
+  "author": "Timeuh",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "eslint": "^8.44.0",
+    "nodemon": "^3.0.1",
+    "prisma": "^4.16.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.16.2",
+    "express": "^4.18.2",
+    "zod": "^3.21.4"
+  }
+}
