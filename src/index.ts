@@ -4,8 +4,6 @@ const express = require('express');
 const port = 5000;
 // init app
 const app = express();
-// init prisma
-const prisma = require('@prisma/client')
 
 // middleware to treat request data
 app.use(express.json());
