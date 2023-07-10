@@ -11,58 +11,58 @@ datasource db {
 }
 
 // represents a card
-model Card {
+model card {
   id             Int         @id @default(autoincrement())
   name           String
   collection     String
   description_id Int
-  description    Description @relation(fields: [description_id], references: [id])
+  description    description @relation(fields: [description_id], references: [id])
   type_id        Int
-  type           Type        @relation(fields: [type_id], references: [id])
+  type           type        @relation(fields: [type_id], references: [id])
   artist_id      Int
-  artist         Artist      @relation(fields: [artist_id], references: [id])
+  artist         artist      @relation(fields: [artist_id], references: [id])
   image          String
 }
 
 // description for each card
-model Description {
+model description {
   id            Int       @id @default(autoincrement())
   winner_effect String    @default("")
   looser_effect String    @default("")
   special       String    @default("")
   character_id  Int       @default(-1)
-  character     Character @relation(fields: [character_id], references: [id])
+  character     character @relation(fields: [character_id], references: [id])
   effect        String    @default("")
   citation      String    @default("")
   rarity_id     Int
-  rarity        Rarity    @relation(fields: [rarity_id], references: [id])
-  Card          Card[]
+  rarity        rarity    @relation(fields: [rarity_id], references: [id])
+  card          card[]
 }
 
 // represents a card character type (Laink, Terracid or Guest)
-model Character {
-  id           Int           @id @default(autoincrement())
-  name         String        @unique
-  descriptions Description[]
+model character {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  description description[]
 }
 
 // represents the type of the card (Field or Character)
-model Type {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  cards Card[]
+model type {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  card card[]
 }
 
 // represents the artist for a card illustration
-model Artist {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  cards Card[]
+model artist {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  card card[]
 }
 
 // represents a card rarity
-model Rarity {
-  id           Int           @id @default(autoincrement())
-  name         String        @unique
-  descriptions Description[]
+model rarity {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  description description[]
 }
