@@ -11,12 +11,12 @@ datasource db {
 }
 
 // represents a card
-model card {
+model Card {
   id             Int         @id @default(autoincrement())
   name           String
   collection     String
   description_id Int
-  description    description @relation(fields: [description_id], references: [id])
+  description    Description @relation(fields: [description_id], references: [id])
   type_id        Int
   type           Type        @relation(fields: [type_id], references: [id])
   artist_id      Int
@@ -25,7 +25,7 @@ model card {
 }
 
 // description for each card
-model description {
+model Description {
   id            Int       @id @default(autoincrement())
   winner_effect String    @default("")
   looser_effect String    @default("")
@@ -36,33 +36,33 @@ model description {
   citation      String    @default("")
   rarity_id     Int
   rarity        Rarity    @relation(fields: [rarity_id], references: [id])
-  card          card[]
+  card          Card[]
 }
 
 // represents a card character type (Laink, Terracid or Guest)
 model Character {
   id          Int           @id @default(autoincrement())
   name        String        @unique
-  description description[]
+  description Description[]
 }
 
 // represents the type of the card (Field or Character)
 model Type {
   id   Int    @id @default(autoincrement())
   name String @unique
-  card card[]
+  card Card[]
 }
 
 // represents the artist for a card illustration
 model Artist {
   id   Int    @id @default(autoincrement())
   name String @unique
-  card card[]
+  card Card[]
 }
 
 // represents a card rarity
 model Rarity {
   id          Int           @id @default(autoincrement())
   name        String        @unique
-  description description[]
+  description Description[]
 }
