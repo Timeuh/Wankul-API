@@ -9,6 +9,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// call routes to treat cards related requests
+app.use('/artists', require('./routes/artists.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
