@@ -1,14 +1,10 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
-// get prisma client
-const prisma = new PrismaClient();
-// get correspondant schema
-const artistSchema = require('../schemas/artist.schema');
-// get zod validation function
 const {validate} = require('../utils/zodFunctions');
-// get prisma existence check function
 const {checkExistence} = require('../utils/prismaFunctions');
+const artistSchema = require('../schemas/artist.schema');
+const prisma = new PrismaClient();
 
 // create an artist
 module.exports.createArtist = async (request: Request, response: Response) => {
