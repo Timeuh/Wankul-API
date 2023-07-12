@@ -12,6 +12,9 @@ const port = 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// call routes to treat auth related requests
+app.use('/auth', require('./routes/auth.routes'));
+
 // call routes to treat cards related requests
 app.use('/artists', require('./routes/artists.routes'));
 
