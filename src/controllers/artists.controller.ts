@@ -4,7 +4,7 @@ import {PrismaClient} from '@prisma/client';
 // get prisma client
 const prisma = new PrismaClient();
 // get correspondant schema
-const artistSchema = require('../schemas/artistSchema');
+const artistSchema = require('../schemas/artist.schema');
 // get zod validation function
 const {validate} = require('../utils/zodFunctions');
 // get prisma existence check function
