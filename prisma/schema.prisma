@@ -66,3 +66,11 @@ model Rarity {
   name         String        @unique
   descriptions Description[]
 }
+
+// represents a user (in our case, it will be an admin)
+model User {
+  email    String @id
+  password String
+  name     String
+  lastname String
+}
