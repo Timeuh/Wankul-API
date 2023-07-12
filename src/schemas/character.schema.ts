@@ -1,10 +1,12 @@
+export{}
+
 // get zod
-const zodCh = require('zod');
+const zod = require('zod');
 
 // create character schema
-const CharacterSchema = zodCh.object({
-  id: zodCh.preprocess((id: string) => parseInt(id), zodCh.number().positive()),
-  name: zodCh.string()
+const CharacterSchema = zod.object({
+  id: zod.preprocess((id: string) => parseInt(id), zod.number().positive()),
+  name: zod.string()
 });
 
 module.exports = CharacterSchema;

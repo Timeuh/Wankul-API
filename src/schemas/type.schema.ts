@@ -1,10 +1,12 @@
+export{}
+
 // get zod
-const zodT = require('zod');
+const zod = require('zod');
 
 // create type schema
-const TypeSchema = zodT.object({
-  id: zodT.preprocess((id: string) => parseInt(id), zodT.number().positive()),
-  name: zodT.string()
+const TypeSchema = zod.object({
+  id: zod.preprocess((id: string) => parseInt(id), zod.number().positive()),
+  name: zod.string()
 });
 
 module.exports = TypeSchema;

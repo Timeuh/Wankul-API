@@ -1,10 +1,10 @@
 // get zod
-const zodA = require('zod');
+const zod = require('zod');
 
 // create artist schema
-const ArtistSchema = zodA.object({
-  id: zodA.preprocess((id: string) => parseInt(id), zodA.number().positive()),
-  name: zodA.string()
+const ArtistSchema = zod.object({
+  id: zod.preprocess((id: string) => parseInt(id), zod.number().positive()),
+  name: zod.string()
 });
 
 module.exports = ArtistSchema;

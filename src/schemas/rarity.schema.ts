@@ -1,10 +1,12 @@
+export{}
+
 // get zod
-const zodR = require('zod');
+const zod = require('zod');
 
 // create rarity schema
-const RaritySchema = zodR.object({
-  id: zodR.preprocess((id: string) => parseInt(id), zodR.number().positive()),
-  name: zodR.string()
+const RaritySchema = zod.object({
+  id: zod.preprocess((id: string) => parseInt(id), zod.number().positive()),
+  name: zod.string()
 });
 
 module.exports = RaritySchema;

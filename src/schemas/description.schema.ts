@@ -1,16 +1,18 @@
+export{}
+
 // get zod
-const zodD = require('zod');
+const zod = require('zod');
 
 // create description schema
-const DescriptionSchema = zodD.object({
-  character_id: zodD.preprocess((character_id: string) => parseInt(character_id), zodD.number().positive()),
-  citation: zodD.string(),
-  effect: zodD.string(),
-  id: zodD.preprocess((id: string) => parseInt(id), zodD.number().positive()),
-  looser_effect: zodD.string(),
-  rarity_id: zodD.preprocess((rarity_id: string) => parseInt(rarity_id), zodD.number().positive()),
-  special: zodD.string(),
-  winner_effect: zodD.string()
+const DescriptionSchema = zod.object({
+  character_id: zod.preprocess((character_id: string) => parseInt(character_id), zod.number().positive()),
+  citation: zod.string(),
+  effect: zod.string(),
+  id: zod.preprocess((id: string) => parseInt(id), zod.number().positive()),
+  looser_effect: zod.string(),
+  rarity_id: zod.preprocess((rarity_id: string) => parseInt(rarity_id), zod.number().positive()),
+  special: zod.string(),
+  winner_effect: zod.string()
 });
 
 module.exports = DescriptionSchema;

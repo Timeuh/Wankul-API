@@ -1,15 +1,17 @@
+export{}
+
 // get zod
-const zodC = require('zod');
+const zod = require('zod');
 
 // create card schema
-const CardSchema = zodC.object({
-  artist_id: zodC.preprocess((artist_id: string) => parseInt(artist_id), zodC.number().positive()),
-  collection: zodC.string(),
-  description_id: zodC.preprocess((description_id: string) => parseInt(description_id), zodC.number().positive()),
-  id: zodC.preprocess((id: string) => parseInt(id), zodC.number().positive()),
-  image: zodC.string(),
-  name: zodC.string(),
-  type_id: zodC.preprocess((type_id: string) => parseInt(type_id), zodC.number().positive()),
+const CardSchema = zod.object({
+  artist_id: zod.preprocess((artist_id: string) => parseInt(artist_id), zod.number().positive()),
+  collection: zod.string(),
+  description_id: zod.preprocess((description_id: string) => parseInt(description_id), zod.number().positive()),
+  id: zod.preprocess((id: string) => parseInt(id), zod.number().positive()),
+  image: zod.string(),
+  name: zod.string(),
+  type_id: zod.preprocess((type_id: string) => parseInt(type_id), zod.number().positive()),
 });
 
 module.exports = CardSchema;
