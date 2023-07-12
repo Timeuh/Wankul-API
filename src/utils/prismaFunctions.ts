@@ -15,6 +15,10 @@ module.exports.checkExistence = async (model: Model, validatedObject: any) => {
       existence = await checkArtistExistence(validatedObject);
       break;
 
+    case 'user':
+      existence = await checkUserExistence(validatedObject);
+      break;
+
     default:
       break;
   }
@@ -30,6 +34,15 @@ const checkArtistExistence = async (validatedObject: any)=> {
   return prisma.artist.findFirst({
     where: {
       id: validatedObject.id
+    }
+  });
+}
+
+// check existence of a user
+const checkUserExistence = async (validatedObject: any) => {
+  return prisma.user.findFirst({
+    where: {
+      email: validatedObject.email
     }
   });
 }
