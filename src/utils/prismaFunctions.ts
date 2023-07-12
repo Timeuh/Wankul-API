@@ -25,7 +25,7 @@ module.exports.checkExistence = async (model: Model, validatedObject: any) => {
 
   // if so, throw an error
   if (existence){
-    throw new Error('DuplicateError : this artist already exists !');
+    throw new Error(`DuplicateError : this ${model} already exists !`);
   }
 }
 
