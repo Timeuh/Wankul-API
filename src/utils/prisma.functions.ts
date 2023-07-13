@@ -1,5 +1,5 @@
 import {PrismaClient} from '@prisma/client';
-import {Model} from './apiTypes';
+import {Model} from './api.types';
 
 // get prisma client
 const prisma = new PrismaClient();
