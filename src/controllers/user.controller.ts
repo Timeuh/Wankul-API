@@ -3,6 +3,7 @@ import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../utils/zod.functions');
 const {checkExistence} = require('../utils/prisma.functions');
+const {verifyToken} = require('../utils/api.functions');
 const userSchema = require('../schemas/user.schema');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
@@ -10,6 +11,9 @@ const bcrypt = require('bcrypt');
 // create a user
 module.exports.createUser = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // validate request body data
     const validatedUser = validate(userSchema, request.body);
 

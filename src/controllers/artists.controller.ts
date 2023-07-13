@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../utils/zod.functions');
+const {verifyToken} = require('../utils/api.functions');
 const {checkExistence} = require('../utils/prisma.functions');
 const artistSchema = require('../schemas/artist.schema');
 const prisma = new PrismaClient();
@@ -9,6 +10,9 @@ const prisma = new PrismaClient();
 // create an artist
 module.exports.createArtist = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // validate request body data
     const validatedArtist = validate(artistSchema, request.body);
 
