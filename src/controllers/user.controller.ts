@@ -40,9 +40,58 @@ module.exports.createUser = async (request: Request, response: Response) => {
       data: user
     });
   } catch (error: any) {
-    response.status(500).json({
+    return response.status(500).json({
       code: 500,
       message: error.message
     })
+  }
+}
+
+// get a user from an email
+module.exports.getUser = async (request: Request, response: Response) => {
+  try {
+    // verify the jwt token
+    verifyToken(request);
+
+    // if the parameter is missing
+    if (!request.body.email){
+      return response.status(400).json({
+        code: 404,
+        error: 'RequestError : you must provide an email !'
+      });
+    }
+
+    // get the user from database
+    const user = await prisma.user.findFirst({
+      where: {
+        email: request.body.email
+      }
+    });
+
+    // if the user doesn't exist
+    if (!user){
+      return response.status(400).json({
+        code: 404,
+        error: 'UserError : this user doesn\'t exist !'
+      });
+    }
+
+    // validate user object
+    const validatedUser = validate(userSchema, user);
+
+    // delete password from displayed information
+    delete validatedUser.password;
+
+    // return the user
+    return response.status(200).json({
+      code: 200,
+      user: validatedUser
+    })
+
+  } catch (error: any){
+    return response.status(500).json({
+      code: 500,
+      message: error.message
+    });
   }
 }
