@@ -1,6 +1,6 @@
 export {};
 
-const {createUser, getUser, updateUser} = require('../controllers/user.controller');
+const {createUser, getUser, updateUser, deleteUser} = require('../controllers/user.controller');
 const router = require('express').Router();
 
 // route to create a user
@@ -11,6 +11,9 @@ router.get('/get', getUser);
 
 // route to update a user
 router.put('/update', updateUser);
+
+// route to delete a user
+router.delete('/delete', deleteUser);
 
 // export the router
 module.exports = router;
