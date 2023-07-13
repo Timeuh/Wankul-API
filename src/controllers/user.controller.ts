@@ -44,7 +44,7 @@ module.exports.createUser = async (request: Request, response: Response) => {
     return response.status(500).json({
       code: 500,
       message: error.message
-    })
+    });
   }
 }
 
@@ -87,8 +87,7 @@ module.exports.getUser = async (request: Request, response: Response) => {
     return response.status(200).json({
       code: 200,
       user: validatedUser
-    })
-
+    });
   } catch (error: any){
     // in case of error, return the error
     return response.status(500).json({
@@ -120,20 +119,62 @@ module.exports.updateUser = async (request: Request, response: Response) => {
       return response.status(400).json({
         code: 400,
         message: 'UpdateError : can not update the provided user !'
-      })
+      });
     }
 
     // return the updated user
     return response.status(200).json({
       code: 200,
       newUser: updatedUser
-    })
-
+    });
   } catch (error: any){
     // in case of error, return the error
     return response.status(500).json({
       code: 500,
       error: error.message
-    })
+    });
+  }
+}
+
+// delete a user
+module.exports.deleteUser = async (request: Request, response: Response) => {
+  try {
+    // verify the jwt token
+    verifyToken(request);
+
+    // if the parameter is missing
+    if (!request.body.email){
+      return response.status(400).json({
+        code: 404,
+        error: 'RequestError : you must provide an email !'
+      });
+    }
+
+    // delete the user
+    const deletedUser = await prisma.user.delete({
+      where: {
+        email: request.body.email
+      }
+    });
+
+    // if the update fails
+    if (!deletedUser){
+      return response.status(400).json({
+        code: 400,
+        message: 'DeleteError : can not delete the provided user !'
+      });
+    }
+
+    // return the deleted user
+    return response.status(200).json({
+      code: 200,
+      newUser: deletedUser
+    });
+  } catch (error: any){
+    // in case of error, return the error
+    return response.status(500).json({
+      code: 500,
+      error: error.message
+    });
   }
 }
