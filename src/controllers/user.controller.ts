@@ -21,23 +21,23 @@ module.exports.createUser = async (request: Request, response: Response) => {
     await checkExistence('user', validatedUser);
 
     // hash and set the new password
-    await bcrypt.hash(validatedUser.password, 10, (error: any, hash: string) => {
+    await bcrypt.hash(validatedUser.password, 10, async (error: any, hash: string) => {
       if (error) {
         throw new Error('PasswordError : can\'t hash password');
       }
 
       validatedUser.password = hash;
-    });
 
-    // insert user in database
-    const user = await prisma.user.create({
-      data: validatedUser
-    });
+      // insert user in database
+      const user = await prisma.user.create({
+        data: validatedUser
+      });
 
-    // return inserted user
-    return response.status(200).json({
-      code: 200,
-      data: user
+      // return inserted user
+      return response.status(200).json({
+        code: 200,
+        data: user
+      });
     });
   } catch (error: any) {
     // in case of error, return the error
