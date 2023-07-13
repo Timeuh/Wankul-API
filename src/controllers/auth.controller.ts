@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
+const {verifyToken} = require('../utils/api.functions');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
@@ -80,40 +81,9 @@ module.exports.authenticate = async (request: Request, response: Response) => {
 
 // verify a jwt
 module.exports.verifyToken = (request: Request, response: Response) => {
-  // get token header and token secret
-  const tokenHeader = process.env.TOKEN_HEADER;
-  const tokenSecret = process.env.JWT_SECRET;
-
   try {
-    // if there is no token header
-    if (!tokenHeader){
-      return response.status(400).json({
-        code: 400,
-        error: 'TokenError : missing token header in .env !'
-      });
-    }
-
-    // get the token from request
-    const token = request.headers[tokenHeader];
-
-    // if there is no token in request
-    if (!token){
-      return response.status(400).json({
-        code: 400,
-        error: 'RequestError : you must provide a token !'
-      });
-    }
-
-    // verify the token
-    const verified = jwt.verify(token, tokenSecret);
-
-    // if the token isn't verified
-    if (!verified){
-      return response.status(400).json({
-        code: 400,
-        error: 'TokenError : can not verify the token !'
-      });
-    }
+    // verify the jwt token
+    verifyToken(request);
 
     // if the token is verified
     return response.status(200).json({
