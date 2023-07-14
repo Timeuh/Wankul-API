@@ -1,6 +1,6 @@
 export {};
 
-const {authenticate, verifyToken} = require('../controllers/auth.controller');
+const {authenticate, verifyToken} = require('../../controllers/backend/auth.controller');
 const router = require('express').Router();
 
 // route to connect a user

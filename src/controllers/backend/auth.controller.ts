@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
-const {verifyToken} = require('../utils/api.functions');
+const {verifyToken} = require('../../utils/api.functions');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();

@@ -1,10 +1,10 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
-const {validate} = require('../utils/zod.functions');
-const {checkExistence} = require('../utils/prisma.functions');
-const {verifyToken} = require('../utils/api.functions');
-const userSchema = require('../schemas/user.schema');
+const {validate} = require('../../utils/zod.functions');
+const {checkExistence} = require('../../utils/prisma.functions');
+const {verifyToken} = require('../../utils/api.functions');
+const userSchema = require('../../schemas/user.schema');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 

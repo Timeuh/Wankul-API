@@ -1,4 +1,4 @@
-const {createArtist, getArtist, updateArtist, deleteArtist} = require("../controllers/artists.controller");
+const {createArtist, getArtist, updateArtist, deleteArtist} = require("../../controllers/backend/artists.controller");
 const router = require('express').Router();
 
 // route to create an artist

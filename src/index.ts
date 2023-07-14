@@ -13,13 +13,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // call routes to treat auth related requests
-app.use('/auth', require('./routes/auth.routes'));
+app.use('/auth', require('./routes/backend/auth.routes'));
 
 // call routes to treat cards related requests
-app.use('/artists', require('./routes/artists.routes'));
+app.use('/artists', require('./routes/backend/artists.routes'));
 
 // call routes to treat user related requests
-app.use('/users', require('./routes/users.routes'));
+app.use('/users', require('./routes/backend/users.routes'));
 
 // run server with provided port
 app.listen(port, () => {
