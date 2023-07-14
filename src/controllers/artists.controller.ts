@@ -38,7 +38,7 @@ module.exports.createArtist = async (request: Request, response: Response) => {
   }
 }
 
-// get a user from an email
+// get an artist from an id
 module.exports.getArtist = async (request: Request, response: Response) => {
   try {
     // verify the jwt token
@@ -84,7 +84,7 @@ module.exports.getArtist = async (request: Request, response: Response) => {
   }
 }
 
-// update a user
+// update an artist
 module.exports.updateArtist = async (request: Request, response: Response) => {
   try {
     // verify the jwt token
@@ -113,6 +113,49 @@ module.exports.updateArtist = async (request: Request, response: Response) => {
     return response.status(200).json({
       code: 200,
       newArtist: updatedArtist
+    });
+  } catch (error: any){
+    // in case of error, return the error
+    return response.status(500).json({
+      code: 500,
+      error: error.message
+    });
+  }
+}
+
+// delete an artist
+module.exports.deleteArtist = async (request: Request, response: Response) => {
+  try {
+    // verify the jwt token
+    verifyToken(request);
+
+    // if the parameter is missing
+    if (!request.body.id){
+      return response.status(400).json({
+        code: 404,
+        error: 'RequestError : you must provide an id !'
+      });
+    }
+
+    // delete the artist
+    const deletedArtist = await prisma.artist.delete({
+      where: {
+        id: request.body.id
+      }
+    });
+
+    // if the update fails
+    if (!deletedArtist){
+      return response.status(400).json({
+        code: 400,
+        message: 'DeleteError : can not delete the provided artist !'
+      });
+    }
+
+    // return the deleted artist
+    return response.status(200).json({
+      code: 200,
+      deletedArtist: deletedArtist
     });
   } catch (error: any){
     // in case of error, return the error
