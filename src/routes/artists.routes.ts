@@ -1,4 +1,4 @@
-const {createArtist, getArtist, updateArtist} = require("../controllers/artists.controller");
+const {createArtist, getArtist, updateArtist, deleteArtist} = require("../controllers/artists.controller");
 const router = require('express').Router();
 
 // route to create an artist
@@ -9,6 +9,9 @@ router.get('/get', getArtist);
 
 // route to update an artist
 router.put('/update', updateArtist);
+
+// route to delete an artist
+router.delete('/delete', deleteArtist);
 
 // export the router
 module.exports = router;
