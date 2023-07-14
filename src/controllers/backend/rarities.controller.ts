@@ -3,8 +3,8 @@ import {PrismaClient} from '@prisma/client';
 
 
 const {verifyToken} = require('../../utils/api.functions');
-const {validate} = require('../../utils/zod.functions');
-const {checkExistence} = require('../../utils/prisma.functions');
+const {validate} = require('../../utils/zod/zod.functions');
+const {checkExistence} = require('../../utils/prisma/prisma.functions');
 const raritySchema = require('../../schemas/rarity.schema');
 const prisma = new PrismaClient();
 

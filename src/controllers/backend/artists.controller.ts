@@ -1,9 +1,9 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
-const {validate} = require('../../utils/zod.functions');
+const {validate} = require('../../utils/zod/zod.functions');
 const {verifyToken} = require('../../utils/api.functions');
-const {checkExistence} = require('../../utils/prisma.functions');
+const {checkExistence} = require('../../utils/prisma/prisma.functions');
 const artistSchema = require('../../schemas/artist.schema');
 const prisma = new PrismaClient();
 
