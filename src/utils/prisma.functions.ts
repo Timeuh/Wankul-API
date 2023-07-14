@@ -19,6 +19,10 @@ module.exports.checkExistence = async (model: Model, validatedObject: any) => {
       existence = await checkUserExistence(validatedObject);
       break;
 
+    case 'rarity':
+      existence = await checkRarityExistence(validatedObject);
+      break;
+
     default:
       break;
   }
@@ -43,6 +47,16 @@ const checkUserExistence = async (validatedObject: any) => {
   return prisma.user.findFirst({
     where: {
       email: validatedObject.email
+    }
+  });
+}
+
+
+// check existence of a rarity
+const checkRarityExistence = async (validatedObject: any) => {
+  return prisma.rarity.findFirst({
+    where: {
+      id: validatedObject.id
     }
   });
 }
