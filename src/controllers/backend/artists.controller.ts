@@ -3,7 +3,7 @@ import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../../utils/zod/zod.functions');
 const {verifyToken} = require('../../utils/api.functions');
-const {checkExistence} = require('../../utils/prisma/prisma.functions');
+const {checkExistence} = require('../../utils/prisma/check-existence');
 const artistSchema = require('../../schemas/artist.schema');
 const prisma = new PrismaClient();
 
