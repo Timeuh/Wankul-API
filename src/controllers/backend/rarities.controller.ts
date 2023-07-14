@@ -123,3 +123,46 @@ module.exports.updateRarity = async (request: Request, response: Response) => {
     });
   }
 }
+
+// delete a rarity
+module.exports.deleteRarity = async (request: Request, response: Response) => {
+  try {
+    // verify the jwt token
+    verifyToken(request);
+
+    // if the parameter is missing
+    if (!request.body.id){
+      return response.status(400).json({
+        code: 404,
+        error: 'RequestError : you must provide an id !'
+      });
+    }
+
+    // delete the rarity
+    const deletedRarity = await prisma.rarity.delete({
+      where: {
+        id: request.body.id
+      }
+    });
+
+    // if the deletion fails
+    if (!deletedRarity){
+      return response.status(400).json({
+        code: 400,
+        message: 'DeleteError : can not delete the provided rarity !'
+      });
+    }
+
+    // return the deleted rarity
+    return response.status(200).json({
+      code: 200,
+      deletedRarity: deletedRarity
+    });
+  } catch (error: any){
+    // in case of error, return the error
+    return response.status(500).json({
+      code: 500,
+      error: error.message
+    });
+  }
+}
