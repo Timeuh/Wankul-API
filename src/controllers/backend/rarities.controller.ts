@@ -84,3 +84,42 @@ module.exports.getRarity = async (request: Request, response: Response) => {
     });
   }
 }
+
+// update a rarity
+module.exports.updateRarity = async (request: Request, response: Response) => {
+  try {
+    // verify the jwt token
+    verifyToken(request);
+
+    // validate request body data
+    const validatedRarity = validate(raritySchema, request.body);
+
+    // update the rarity
+    const updatedRarity = await prisma.rarity.update({
+      where: {
+        id: validatedRarity.id
+      },
+      data: validatedRarity
+    });
+
+    // if the update fails
+    if (!updatedRarity){
+      return response.status(400).json({
+        code: 400,
+        message: 'UpdateError : can not update the provided rarity !'
+      });
+    }
+
+    // return the updated rarity
+    return response.status(200).json({
+      code: 200,
+      newRarity: updatedRarity
+    });
+  } catch (error: any){
+    // in case of error, return the error
+    return response.status(500).json({
+      code: 500,
+      error: error.message
+    });
+  }
+}
