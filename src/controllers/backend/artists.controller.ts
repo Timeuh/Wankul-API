@@ -144,7 +144,7 @@ module.exports.deleteArtist = async (request: Request, response: Response) => {
       }
     });
 
-    // if the update fails
+    // if the deletion fails
     if (!deletedArtist){
       return response.status(400).json({
         code: 400,
