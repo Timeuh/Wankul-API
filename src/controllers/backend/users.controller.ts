@@ -2,42 +2,21 @@ import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../../utils/zod/zod.functions');
-const {checkExistence} = require('../../utils/prisma/check-existence');
+const {createEntity} = require('../../utils/prisma/create-entity');
 const {verifyToken} = require('../../utils/api.functions');
 const userSchema = require('../../schemas/user.schema');
 const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
 
 // create a user
 module.exports.createUser = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
+    // create user
+    const user = await createEntity(request, userSchema, 'user');
 
-    // validate request body data
-    const validatedUser = validate(userSchema, request.body);
-
-    // check if object already is in database
-    await checkExistence('user', validatedUser);
-
-    // hash and set the new password
-    await bcrypt.hash(validatedUser.password, 10, async (error: any, hash: string) => {
-      if (error) {
-        throw new Error('PasswordError : can\'t hash password');
-      }
-
-      validatedUser.password = hash;
-
-      // insert user in database
-      const user = await prisma.user.create({
-        data: validatedUser
-      });
-
-      // return inserted user
-      return response.status(200).json({
-        code: 200,
-        data: user
-      });
+    // return inserted user
+    return response.status(200).json({
+      code: 200,
+      data: user
     });
   } catch (error: any) {
     // in case of error, return the error
@@ -46,7 +25,7 @@ module.exports.createUser = async (request: Request, response: Response) => {
       message: error.message
     });
   }
-}
+};
 
 // get a user from an email
 module.exports.getUser = async (request: Request, response: Response) => {
@@ -55,7 +34,7 @@ module.exports.getUser = async (request: Request, response: Response) => {
     verifyToken(request);
 
     // if the parameter is missing
-    if (!request.body.email){
+    if (!request.body.email) {
       return response.status(400).json({
         code: 404,
         error: 'RequestError : you must provide an email !'
@@ -70,7 +49,7 @@ module.exports.getUser = async (request: Request, response: Response) => {
     });
 
     // if the user doesn't exist
-    if (!user){
+    if (!user) {
       return response.status(400).json({
         code: 404,
         error: 'UserError : this user doesn\'t exist !'
@@ -88,14 +67,14 @@ module.exports.getUser = async (request: Request, response: Response) => {
       code: 200,
       user: validatedUser
     });
-  } catch (error: any){
+  } catch (error: any) {
     // in case of error, return the error
     return response.status(500).json({
       code: 500,
       message: error.message
     });
   }
-}
+};
 
 // update a user
 module.exports.updateUser = async (request: Request, response: Response) => {
@@ -115,7 +94,7 @@ module.exports.updateUser = async (request: Request, response: Response) => {
     });
 
     // if the update fails
-    if (!updatedUser){
+    if (!updatedUser) {
       return response.status(400).json({
         code: 400,
         message: 'UpdateError : can not update the provided user !'
@@ -127,14 +106,14 @@ module.exports.updateUser = async (request: Request, response: Response) => {
       code: 200,
       newUser: updatedUser
     });
-  } catch (error: any){
+  } catch (error: any) {
     // in case of error, return the error
     return response.status(500).json({
       code: 500,
       error: error.message
     });
   }
-}
+};
 
 // delete a user
 module.exports.deleteUser = async (request: Request, response: Response) => {
@@ -143,7 +122,7 @@ module.exports.deleteUser = async (request: Request, response: Response) => {
     verifyToken(request);
 
     // if the parameter is missing
-    if (!request.body.email){
+    if (!request.body.email) {
       return response.status(400).json({
         code: 404,
         error: 'RequestError : you must provide an email !'
@@ -158,7 +137,7 @@ module.exports.deleteUser = async (request: Request, response: Response) => {
     });
 
     // if the deletion fails
-    if (!deletedUser){
+    if (!deletedUser) {
       return response.status(400).json({
         code: 400,
         message: 'DeleteError : can not delete the provided user !'
@@ -170,11 +149,11 @@ module.exports.deleteUser = async (request: Request, response: Response) => {
       code: 200,
       deletedUser: deletedUser
     });
-  } catch (error: any){
+  } catch (error: any) {
     // in case of error, return the error
     return response.status(500).json({
       code: 500,
       error: error.message
     });
   }
-}
+};

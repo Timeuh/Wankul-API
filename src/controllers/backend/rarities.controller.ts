@@ -4,26 +4,15 @@ import {PrismaClient} from '@prisma/client';
 
 const {verifyToken} = require('../../utils/api.functions');
 const {validate} = require('../../utils/zod/zod.functions');
-const {checkExistence} = require('../../utils/prisma/check-existence');
+const {createEntity} = require('../../utils/prisma/create-entity');
 const raritySchema = require('../../schemas/rarity.schema');
 const prisma = new PrismaClient();
 
 // create a rarity
 module.exports.createRarity = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
-
-    // validate request body data
-    const validatedRarity = validate(raritySchema, request.body);
-
-    // check if object already is in database
-    await checkExistence('rarity', validatedRarity);
-
-    // insert rarity in database
-    const rarity = await prisma.rarity.create({
-      data: validatedRarity
-    });
+    // create rarity
+    const rarity = await createEntity(request, raritySchema, 'rarity');
 
     // return inserted rarity
     return response.status(200).json({

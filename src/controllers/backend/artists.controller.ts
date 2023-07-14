@@ -3,26 +3,15 @@ import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../../utils/zod/zod.functions');
 const {verifyToken} = require('../../utils/api.functions');
-const {checkExistence} = require('../../utils/prisma/check-existence');
+const {createEntity} = require('../../utils/prisma/create-entity');
 const artistSchema = require('../../schemas/artist.schema');
 const prisma = new PrismaClient();
 
 // create an artist
 module.exports.createArtist = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
-
-    // validate request body data
-    const validatedArtist = validate(artistSchema, request.body);
-
-    // check if object already is in database
-    await checkExistence('artist', validatedArtist);
-
-    // insert artist in database
-    const artist = await prisma.artist.create({
-      data: validatedArtist
-    });
+    // create artist
+    const artist = await createEntity(request, artistSchema, 'artist');
 
     // return inserted artist
     return response.status(200).json({
