@@ -83,3 +83,42 @@ module.exports.getArtist = async (request: Request, response: Response) => {
     });
   }
 }
+
+// update a user
+module.exports.updateArtist = async (request: Request, response: Response) => {
+  try {
+    // verify the jwt token
+    verifyToken(request);
+
+    // validate request body data
+    const validatedArtist = validate(artistSchema, request.body);
+
+    // update the artist
+    const updatedArtist = await prisma.artist.update({
+      where: {
+        id: validatedArtist.id
+      },
+      data: validatedArtist
+    });
+
+    // if the update fails
+    if (!updatedArtist){
+      return response.status(400).json({
+        code: 400,
+        message: 'UpdateError : can not update the provided artist !'
+      });
+    }
+
+    // return the updated artist
+    return response.status(200).json({
+      code: 200,
+      newArtist: updatedArtist
+    });
+  } catch (error: any){
+    // in case of error, return the error
+    return response.status(500).json({
+      code: 500,
+      error: error.message
+    });
+  }
+}
