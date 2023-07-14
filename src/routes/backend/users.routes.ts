@@ -1,6 +1,6 @@
 export {};
 
-const {createUser, getUser, updateUser, deleteUser} = require('../../controllers/backend/user.controller');
+const {createUser, getUser, updateUser, deleteUser} = require('../../controllers/backend/users.controller');
 const router = require('express').Router();
 
 // route to create a user
