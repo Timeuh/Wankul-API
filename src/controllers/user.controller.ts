@@ -168,7 +168,7 @@ module.exports.deleteUser = async (request: Request, response: Response) => {
     // return the deleted user
     return response.status(200).json({
       code: 200,
-      newUser: deletedUser
+      deletedUser: deletedUser
     });
   } catch (error: any){
     // in case of error, return the error
