@@ -21,6 +21,9 @@ app.use('/artists', require('./routes/backend/artists.routes'));
 // call routes to treat user related requests
 app.use('/users', require('./routes/backend/users.routes'));
 
+// call routes to treat rarity related requests
+app.use('/rarities', require('./routes/backend/rarities.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
