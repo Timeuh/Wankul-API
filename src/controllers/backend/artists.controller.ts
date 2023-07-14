@@ -73,7 +73,7 @@ module.exports.getArtist = async (request: Request, response: Response) => {
     // return the artist
     return response.status(200).json({
       code: 200,
-      user: validatedArtist
+      rarity: validatedArtist
     });
   } catch (error: any){
     // in case of error, return the error
