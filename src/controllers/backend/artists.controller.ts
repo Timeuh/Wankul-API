@@ -34,6 +34,9 @@ module.exports.createArtist = async (request: Request, response: Response) => {
 // get an artist from an id
 module.exports.getArtist = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // get artist from database
     const artist = await getEntity(request, artistSchema, 'artist');
 
@@ -54,6 +57,9 @@ module.exports.getArtist = async (request: Request, response: Response) => {
 // update an artist
 module.exports.updateArtist = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // update the artist
     const updatedArtist = await updateEntity(request, artistSchema, 'artist');
 

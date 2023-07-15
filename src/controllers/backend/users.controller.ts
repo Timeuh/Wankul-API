@@ -11,6 +11,9 @@ const prisma = new PrismaClient();
 // create a user
 module.exports.createUser = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // create user
     const user = await createEntity(request, userSchema, 'user');
 
@@ -31,6 +34,9 @@ module.exports.createUser = async (request: Request, response: Response) => {
 // get a user from an email
 module.exports.getUser = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // validate user object
     const user = await getEntity(request, userSchema, 'user');
 

@@ -12,6 +12,9 @@ const prisma = new PrismaClient();
 // create a rarity
 module.exports.createRarity = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // create rarity
     const rarity = await createEntity(request, raritySchema, 'rarity');
 
@@ -32,6 +35,9 @@ module.exports.createRarity = async (request: Request, response: Response) => {
 // get a rarity from an id
 module.exports.getRarity = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // get rarity from database
     const rarity = await getEntity(request, raritySchema, 'rarity');
 
@@ -52,6 +58,9 @@ module.exports.getRarity = async (request: Request, response: Response) => {
 // update a rarity
 module.exports.updateRarity = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // update the rarity
     const updatedRarity = updateEntity(request, raritySchema, 'rarity');
 
