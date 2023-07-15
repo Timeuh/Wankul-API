@@ -60,7 +60,7 @@ module.exports.updateRarity = async (request: Request, response: Response) => {
     verifyToken(request);
 
     // update the rarity
-    const updatedRarity = updateEntity(request, raritySchema, 'rarity');
+    const updatedRarity = await updateEntity(request, raritySchema, 'rarity');
 
     // return the updated rarity
     return response.status(200).json({
