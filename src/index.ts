@@ -25,7 +25,7 @@ app.use('/users', require('./routes/backend/users.routes'));
 app.use('/rarities', require('./routes/backend/rarities.routes'));
 
 // call routes to treat character related requests
-app.use('/characters', require('./routes/backend/character.routes'));
+app.use('/characters', require('./routes/backend/characters.routes'));
 
 // run server with provided port
 app.listen(port, () => {

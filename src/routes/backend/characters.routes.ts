@@ -1,6 +1,6 @@
 export{}
 
-const {createCharacter, getCharacter, updateCharacter, deleteCharacter} = require('../../controllers/backend/character.controller');
+const {createCharacter, getCharacter, updateCharacter, deleteCharacter} = require('../../controllers/backend/characters.controller');
 const router = require('express').Router();
 
 // route to create a character
