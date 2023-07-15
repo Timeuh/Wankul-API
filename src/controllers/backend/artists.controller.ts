@@ -1,12 +1,11 @@
 import {Request, Response} from 'express';
-import {PrismaClient} from '@prisma/client';
 
 const {verifyToken} = require('../../utils/api.functions');
 const {createEntity} = require('../../utils/prisma/create-entity');
 const {getEntity} = require('../../utils/prisma/get-entity');
 const {updateEntity} = require('../../utils/prisma/update-entity');
+const {deleteEntity} = require('../../utils/prisma/delete-entity');
 const artistSchema = require('../../schemas/artist.schema');
-const prisma = new PrismaClient();
 
 // create an artist
 module.exports.createArtist = async (request: Request, response: Response) => {
@@ -83,28 +82,8 @@ module.exports.deleteArtist = async (request: Request, response: Response) => {
     // verify the jwt token
     verifyToken(request);
 
-    // if the parameter is missing
-    if (!request.body.id){
-      return response.status(400).json({
-        code: 404,
-        error: 'RequestError : you must provide an id !'
-      });
-    }
-
     // delete the artist
-    const deletedArtist = await prisma.artist.delete({
-      where: {
-        id: request.body.id
-      }
-    });
-
-    // if the deletion fails
-    if (!deletedArtist){
-      return response.status(400).json({
-        code: 400,
-        message: 'DeleteError : can not delete the provided artist !'
-      });
-    }
+    const deletedArtist = await deleteEntity(request, 'artist');
 
     // return the deleted artist
     return response.status(200).json({

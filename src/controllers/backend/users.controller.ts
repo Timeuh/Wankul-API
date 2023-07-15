@@ -1,12 +1,11 @@
 import {Request, Response} from 'express';
-import {PrismaClient} from '@prisma/client';
 
 const {createEntity} = require('../../utils/prisma/create-entity');
 const {getEntity} = require('../../utils/prisma/get-entity');
 const {updateEntity} = require('../../utils/prisma/update-entity');
+const {deleteEntity} = require('../../utils/prisma/delete-entity');
 const {verifyToken} = require('../../utils/api.functions');
 const userSchema = require('../../schemas/user.schema');
-const prisma = new PrismaClient();
 
 // create a user
 module.exports.createUser = async (request: Request, response: Response) => {
@@ -86,28 +85,8 @@ module.exports.deleteUser = async (request: Request, response: Response) => {
     // verify the jwt token
     verifyToken(request);
 
-    // if the parameter is missing
-    if (!request.body.email) {
-      return response.status(400).json({
-        code: 404,
-        error: 'RequestError : you must provide an email !'
-      });
-    }
-
     // delete the user
-    const deletedUser = await prisma.user.delete({
-      where: {
-        email: request.body.email
-      }
-    });
-
-    // if the deletion fails
-    if (!deletedUser) {
-      return response.status(400).json({
-        code: 400,
-        message: 'DeleteError : can not delete the provided user !'
-      });
-    }
+    const deletedUser = await deleteEntity(request, 'user');
 
     // return the deleted user
     return response.status(200).json({
