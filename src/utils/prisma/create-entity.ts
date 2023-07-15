@@ -3,16 +3,12 @@ import {Model} from '../api.types';
 import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../../utils/zod/zod.functions');
-const {verifyToken} = require('../../utils/api.functions');
 const {checkExistence} = require('../../utils/prisma/check-existence');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 
 // create an entity
 module.exports.createEntity = async (request: Request, schema: any, entityName: Model) => {
-  // verify the jwt token
-  verifyToken(request);
-
   // validate request body data
   const validatedEntity = validate(schema, request.body);
 

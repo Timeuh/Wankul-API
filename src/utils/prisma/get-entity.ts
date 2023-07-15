@@ -3,14 +3,10 @@ import {PrismaClient} from '@prisma/client';
 import {Model} from '../api.types';
 
 const {validate} = require('../../utils/zod/zod.functions');
-const {verifyToken} = require('../../utils/api.functions');
 const prisma = new PrismaClient();
 
 // get an entity from an id
 module.exports.getEntity = async (request: Request, schema: any, entityName: Model) => {
-  // verify the jwt token
-  verifyToken(request);
-
   // if the parameter is missing from request
   if (entityName === 'user'){
     if (!request.body.email){
