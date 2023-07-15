@@ -3,6 +3,7 @@ import {PrismaClient} from '@prisma/client';
 
 const {validate} = require('../../utils/zod/zod.functions');
 const {createEntity} = require('../../utils/prisma/create-entity');
+const {getEntity} = require('../../utils/prisma/get-entity');
 const {verifyToken} = require('../../utils/api.functions');
 const userSchema = require('../../schemas/user.schema');
 const prisma = new PrismaClient();
@@ -30,42 +31,16 @@ module.exports.createUser = async (request: Request, response: Response) => {
 // get a user from an email
 module.exports.getUser = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
-
-    // if the parameter is missing
-    if (!request.body.email) {
-      return response.status(400).json({
-        code: 404,
-        error: 'RequestError : you must provide an email !'
-      });
-    }
-
-    // get the user from database
-    const user = await prisma.user.findFirst({
-      where: {
-        email: request.body.email
-      }
-    });
-
-    // if the user doesn't exist
-    if (!user) {
-      return response.status(400).json({
-        code: 404,
-        error: 'UserError : this user doesn\'t exist !'
-      });
-    }
-
     // validate user object
-    const validatedUser = validate(userSchema, user);
+    const user = await getEntity(request, userSchema, 'user');
 
     // delete password from displayed information
-    delete validatedUser.password;
+    delete user.password;
 
     // return the user
     return response.status(200).json({
       code: 200,
-      user: validatedUser
+      user: user
     });
   } catch (error: any) {
     // in case of error, return the error

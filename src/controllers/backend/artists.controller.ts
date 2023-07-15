@@ -4,6 +4,7 @@ import {PrismaClient} from '@prisma/client';
 const {validate} = require('../../utils/zod/zod.functions');
 const {verifyToken} = require('../../utils/api.functions');
 const {createEntity} = require('../../utils/prisma/create-entity');
+const {getEntity} = require('../../utils/prisma/get-entity');
 const artistSchema = require('../../schemas/artist.schema');
 const prisma = new PrismaClient();
 
@@ -30,39 +31,13 @@ module.exports.createArtist = async (request: Request, response: Response) => {
 // get an artist from an id
 module.exports.getArtist = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
-
-    // if the parameter is missing
-    if (!request.body.id){
-      return response.status(400).json({
-        code: 404,
-        error: 'RequestError : you must provide an id !'
-      });
-    }
-
-    // get the artist from database
-    const artist = await prisma.artist.findFirst({
-      where: {
-        id: request.body.id
-      }
-    });
-
-    // if the artist doesn't exist
-    if (!artist){
-      return response.status(400).json({
-        code: 404,
-        error: 'ArtistError : this artist doesn\'t exist !'
-      });
-    }
-
-    // validate artist object
-    const validatedArtist = validate(artistSchema, artist);
+    // get artist from database
+    const artist = await getEntity(request, artistSchema, 'artist');
 
     // return the artist
     return response.status(200).json({
       code: 200,
-      rarity: validatedArtist
+      rarity: artist
     });
   } catch (error: any){
     // in case of error, return the error
