@@ -3,9 +3,9 @@ import {PrismaClient} from '@prisma/client';
 
 
 const {verifyToken} = require('../../utils/api.functions');
-const {validate} = require('../../utils/zod/zod.functions');
 const {createEntity} = require('../../utils/prisma/create-entity');
 const {getEntity} = require('../../utils/prisma/get-entity');
+const {updateEntity} = require('../../utils/prisma/update-entity');
 const raritySchema = require('../../schemas/rarity.schema');
 const prisma = new PrismaClient();
 
@@ -52,27 +52,8 @@ module.exports.getRarity = async (request: Request, response: Response) => {
 // update a rarity
 module.exports.updateRarity = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
-
-    // validate request body data
-    const validatedRarity = validate(raritySchema, request.body);
-
     // update the rarity
-    const updatedRarity = await prisma.rarity.update({
-      where: {
-        id: validatedRarity.id
-      },
-      data: validatedRarity
-    });
-
-    // if the update fails
-    if (!updatedRarity){
-      return response.status(400).json({
-        code: 400,
-        message: 'UpdateError : can not update the provided rarity !'
-      });
-    }
+    const updatedRarity = updateEntity(request, raritySchema, 'rarity');
 
     // return the updated rarity
     return response.status(200).json({

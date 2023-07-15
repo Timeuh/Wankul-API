@@ -1,9 +1,9 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
-const {validate} = require('../../utils/zod/zod.functions');
 const {createEntity} = require('../../utils/prisma/create-entity');
 const {getEntity} = require('../../utils/prisma/get-entity');
+const {updateEntity} = require('../../utils/prisma/update-entity');
 const {verifyToken} = require('../../utils/api.functions');
 const userSchema = require('../../schemas/user.schema');
 const prisma = new PrismaClient();
@@ -57,24 +57,8 @@ module.exports.updateUser = async (request: Request, response: Response) => {
     // verify the jwt token
     verifyToken(request);
 
-    // validate request body data
-    const validatedUser = validate(userSchema, request.body);
-
     // update the user
-    const updatedUser = await prisma.user.update({
-      where: {
-        email: validatedUser.email
-      },
-      data: validatedUser
-    });
-
-    // if the update fails
-    if (!updatedUser) {
-      return response.status(400).json({
-        code: 400,
-        message: 'UpdateError : can not update the provided user !'
-      });
-    }
+    const updatedUser = await updateEntity(request, userSchema, 'user');
 
     // return the updated user
     return response.status(200).json({

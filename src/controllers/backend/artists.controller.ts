@@ -1,16 +1,19 @@
 import {Request, Response} from 'express';
 import {PrismaClient} from '@prisma/client';
 
-const {validate} = require('../../utils/zod/zod.functions');
 const {verifyToken} = require('../../utils/api.functions');
 const {createEntity} = require('../../utils/prisma/create-entity');
 const {getEntity} = require('../../utils/prisma/get-entity');
+const {updateEntity} = require('../../utils/prisma/update-entity');
 const artistSchema = require('../../schemas/artist.schema');
 const prisma = new PrismaClient();
 
 // create an artist
 module.exports.createArtist = async (request: Request, response: Response) => {
   try {
+    // verify the jwt token
+    verifyToken(request);
+
     // create artist
     const artist = await createEntity(request, artistSchema, 'artist');
 
@@ -51,27 +54,8 @@ module.exports.getArtist = async (request: Request, response: Response) => {
 // update an artist
 module.exports.updateArtist = async (request: Request, response: Response) => {
   try {
-    // verify the jwt token
-    verifyToken(request);
-
-    // validate request body data
-    const validatedArtist = validate(artistSchema, request.body);
-
     // update the artist
-    const updatedArtist = await prisma.artist.update({
-      where: {
-        id: validatedArtist.id
-      },
-      data: validatedArtist
-    });
-
-    // if the update fails
-    if (!updatedArtist){
-      return response.status(400).json({
-        code: 400,
-        message: 'UpdateError : can not update the provided artist !'
-      });
-    }
+    const updatedArtist = await updateEntity(request, artistSchema, 'artist');
 
     // return the updated artist
     return response.status(200).json({
