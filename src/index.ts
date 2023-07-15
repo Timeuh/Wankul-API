@@ -24,6 +24,9 @@ app.use('/users', require('./routes/backend/users.routes'));
 // call routes to treat rarity related requests
 app.use('/rarities', require('./routes/backend/rarities.routes'));
 
+// call routes to treat character related requests
+app.use('/characters', require('./routes/backend/character.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
