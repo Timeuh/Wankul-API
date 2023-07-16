@@ -1,25 +1,34 @@
 import {Request} from 'express';
 import {PrismaClient} from '@prisma/client';
-import {Model} from '../api.types';
+import {Model, RequestType} from '../api.types';
 
 const {validate} = require('../../utils/zod/zod.functions');
 const prisma = new PrismaClient();
 
 // get an entity from an id
-module.exports.getEntity = async (request: Request, schema: any, entityName: Model) => {
-  // if the parameter is missing from request
-  if (entityName === 'user'){
-    if (!request.body.email){
-      throw new Error('RequestError : you must provide an email !');
+module.exports.getEntity = async (request: Request, schema: any, entityName: Model, type: RequestType = 'backend') => {
+  // if it's a backend request
+  if (type === 'backend'){
+    // if the parameter is missing from request
+    if (entityName === 'user'){
+      if (!request.body.email){
+        throw new Error('RequestError : you must provide an email !');
+      }
+    } else {
+      if (!request.body.id){
+        throw new Error('RequestError : you must provide an id !');
+      }
     }
+    // else it's an api request
   } else {
-    if (!request.body.id){
-      throw new Error('RequestError : you must provide an id !');
+    // if the parameter is missing from url
+    if (!request.params.id){
+      throw new Error('RequestError : you must put an id in your url !');
     }
   }
 
   // get the entity from database
-  const entity = await getEntity(request, entityName);
+  const entity = await getEntity(request, entityName, type);
 
   // if the entity doesn't exist
   if (!entity){
@@ -31,25 +40,25 @@ module.exports.getEntity = async (request: Request, schema: any, entityName: Mod
 }
 
 // get entity from database
-const getEntity = async (request: Request, entityName: Model) => {
+const getEntity = async (request: Request, entityName: Model, type: RequestType) => {
   switch (entityName){
     case 'artist':
-      return getArtist(request.body.id);
+      return (type === 'backend' ? getArtist(request.body.id) : getArtist(parseInt(request.params.id)));
 
     case 'card':
-      return getCard(request.body.id);
+      return (type === 'backend' ? getCard(request.body.id) : getCard(parseInt(request.params.id)));
 
     case 'character':
-      return getCharacter(request.body.id);
+      return (type === 'backend' ? getCharacter(request.body.id) : getCharacter(parseInt(request.params.id)));
 
     case 'description':
-      return getDescription(request.body.id);
+      return (type === 'backend' ? getDescription(request.body.id) : getDescription(parseInt(request.params.id)));
 
     case 'rarity':
-      return getRarity(request.body.id);
+      return (type === 'backend' ? getRarity(request.body.id) : getRarity(parseInt(request.params.id)));
 
     case 'type':
-      return getType(request.body.id);
+      return (type === 'backend' ? getType(request.body.id) : getType(parseInt(request.params.id)));
 
     case 'user':
       return getUser(request.body.email);
