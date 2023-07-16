@@ -1,6 +1,6 @@
 export{}
 
-const {createDescription, getDescription, updateDescription, deleteDescription} = require('../../controllers/backend/Descriptions.controller');
+const {createDescription, getDescription, updateDescription, deleteDescription} = require('../../controllers/backend/descriptions.controller');
 const router = require('express').Router();
 
 // route to create a description
