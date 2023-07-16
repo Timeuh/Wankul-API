@@ -33,6 +33,9 @@ app.use('/types', require('./routes/backend/types.routes'));
 // call routes to treat description related requests
 app.use('/descriptions', require('./routes/backend/descriptions.routes'));
 
+// call routes to treat card related requests
+app.use('/cards', require('./routes/backend/cards.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
