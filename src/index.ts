@@ -30,6 +30,9 @@ app.use('/characters', require('./routes/backend/characters.routes'));
 // call routes to treat type related requests
 app.use('/types', require('./routes/backend/types.routes'));
 
+// call routes to treat description related requests
+app.use('/descriptions', require('./routes/backend/descriptions.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
