@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
 
 const {getEntity} = require('../../utils/prisma/get-entity');
+const {getAllEntities} = require('../../utils/prisma/get-all-entities');
+const {fillResponseForAllEntities} = require('../../utils/api.functions');
 const artistSchema = require('../../schemas/artist.schema');
 
 // get an artist from an id
@@ -16,6 +18,26 @@ module.exports.getArtistById = async (request: Request, response: Response) => {
         self: `/api/artist/${request.params.id}`
       }
     });
+  } catch (error: any){
+    // in case of error, return the error
+    return response.status(500).json({
+      code: 500,
+      message: error.message
+    });
+  }
+}
+
+// get all artists
+module.exports.getAllArtists = async (request: Request, response: Response) => {
+  try {
+    // get artist from database
+    const artists = await getAllEntities(request, artistSchema, 'artist');
+
+    // get response data object
+    const responseData = fillResponseForAllEntities(artists, artistSchema, 'artist', 'artists');
+
+    // return the artists
+    return response.status(200).json(responseData);
   } catch (error: any){
     // in case of error, return the error
     return response.status(500).json({
