@@ -54,7 +54,8 @@ module.exports.fillResponseForAllEntities = (entities: Array<any>, schema: any, 
     (responseData[pluralName] as any).push({
       [entityName]: validatedEntity,
       links: {
-        self: `/api/${entityName}/${validatedEntity.id}`
+        self: `/api/${entityName}/${validatedEntity.id}`,
+        all: `/api/${entityName}/`
       }
     })
   });
