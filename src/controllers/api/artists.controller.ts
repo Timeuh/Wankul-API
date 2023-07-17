@@ -15,7 +15,8 @@ module.exports.getArtistById = async (request: Request, response: Response) => {
     return response.status(200).json({
       artist: artist,
       links: {
-        self: `/api/artist/${request.params.id}`
+        self: `/api/artist/${request.params.id}`,
+        all: '/api/artist/'
       }
     });
   } catch (error: any){
