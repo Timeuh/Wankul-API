@@ -1,6 +1,9 @@
 export{}
 
+import {Model, PluralModel} from './api.types';
 import {Request} from 'express';
+
+const {validate} = require('./zod/zod.functions');
 const jwt = require('jsonwebtoken');
 
 // verify a jwt token
@@ -31,4 +34,31 @@ module.exports.verifyToken = (request: Request) => {
   }
 
   return true;
+}
+
+// create response object for getAll for any entity
+module.exports.fillResponseForAllEntities = (entities: Array<any>, schema: any, entityName: Model, pluralName: PluralModel) => {
+  // create response data object
+  const responseData = {
+    type: 'collection',
+    length: entities.length,
+    [pluralName]: [] as any[]
+  }
+
+  // fill response data object
+  entities.forEach((entity: any) => {
+    // check if object is a valid artist
+    const validatedEntity = validate(schema, entity);
+
+    // fill responseData
+    (responseData[pluralName] as any).push({
+      [entityName]: validatedEntity,
+      links: {
+        self: `/api/${entityName}/${validatedEntity.id}`
+      }
+    })
+  });
+
+  // return the response data object
+  return responseData;
 }
