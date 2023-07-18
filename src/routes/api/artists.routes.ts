@@ -9,7 +9,7 @@ router.get('/:id', getArtistById);
 // route to get all artists
 router.get('/', getAllArtists);
 
-// route to get all artists
+// route to get all artists related cards
 router.get('/:id/cards', getArtistCards);
 
 // export the router

@@ -9,7 +9,7 @@ router.get('/:id', getRarityById);
 // route to get all rarities
 router.get('/', getAllRarities);
 
-// route to get all rarities
+// route to get all rarities related cards
 router.get('/:id/cards', getRarityCards);
 
 // export the router
