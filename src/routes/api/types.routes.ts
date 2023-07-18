@@ -3,7 +3,7 @@ export{}
 const {getTypeById, getAllTypes, getTypeCards} = require("../../controllers/api/types.controller");
 const router = require('express').Router();
 
-// route to create a type
+// route to get a type by id
 router.get('/:id', getTypeById);
 
 // route to get all types

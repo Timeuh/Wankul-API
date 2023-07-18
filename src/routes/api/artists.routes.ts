@@ -3,7 +3,7 @@ export{}
 const {getArtistById, getAllArtists, getArtistCards} = require("../../controllers/api/artists.controller");
 const router = require('express').Router();
 
-// route to create an artist
+// route to get an artist by id
 router.get('/:id', getArtistById);
 
 // route to get all artists

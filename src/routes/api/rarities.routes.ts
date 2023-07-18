@@ -3,7 +3,7 @@ export{}
 const {getRarityById, getAllRarities, getRarityCards} = require("../../controllers/api/rarities.controller");
 const router = require('express').Router();
 
-// route to create a rarity
+// route to get a rarity by id
 router.get('/:id', getRarityById);
 
 // route to get all rarities

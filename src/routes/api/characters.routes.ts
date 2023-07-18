@@ -3,7 +3,7 @@ export{}
 const {getCharacterById, getAllCharacters, getCharacterCards} = require("../../controllers/api/Characters.controller");
 const router = require('express').Router();
 
-// route to create a character
+// route to get a character by id
 router.get('/:id', getCharacterById);
 
 // route to get all characters
