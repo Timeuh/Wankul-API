@@ -39,6 +39,9 @@ app.use('/cards', require('./routes/backend/cards.routes'));
 // call api routes to treat artist related requests
 app.use('/api/artist', require('./routes/api/artists.routes'));
 
+// call api routes to treat character related requests
+app.use('/api/character', require('./routes/api/characters.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
