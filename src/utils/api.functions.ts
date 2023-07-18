@@ -1,6 +1,6 @@
 export{}
 
-import {Model, PluralModel} from './api.types';
+import {Card, CardsResponse, Model, PluralModel} from './api.types';
 import {Request} from 'express';
 
 const {validate} = require('./zod/zod.functions');
@@ -62,4 +62,19 @@ module.exports.fillResponseForAllEntities = (entities: Array<any>, schema: any, 
 
   // return the response data object
   return responseData;
+}
+
+// fill response object with cards
+module.exports.fillResponseWithCards = <ModelKey extends Model>(responseObject: CardsResponse<ModelKey>, cards: Array<Card>) => {
+  cards.forEach((card: Card) => {
+    // delete unwanted properties
+    delete card.description_id;
+    delete card.type_id;
+    delete card.artist_id;
+    delete card.description.character_id;
+    delete card.description.rarity_id;
+
+    // push into response object
+    responseObject.cards.cards.push(card);
+  });
 }
