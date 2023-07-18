@@ -59,7 +59,8 @@ const getCards = async () => {
 
 // get all characters from database
 const getCharacters = async () => {
-  return prisma.character.findMany();
+  const characters = await prisma.character.findMany();
+  return characters.filter((character) => character.id !== -1);
 };
 
 
