@@ -29,14 +29,8 @@ const getEntityCards = async (request: Request, entityName: Model) => {
     case 'artist':
       return getArtistCards(parseInt(request.params.id));
 
-    case 'card':
-      return null;
-
     case 'character':
       return getCharacterCards(parseInt(request.params.id));
-
-    case 'description':
-      return getDescriptionCards(parseInt(request.params.id));
 
     case 'rarity':
       return getRarityCards(parseInt(request.params.id));
@@ -44,9 +38,9 @@ const getEntityCards = async (request: Request, entityName: Model) => {
     case 'type':
       return getTypeCards(parseInt(request.params.id));
 
+    case 'description':
+    case 'card':
     case 'user':
-      return null;
-
     default:
       return null;
   }
@@ -78,26 +72,6 @@ const getCharacterCards = async (characterId: number) => {
       description: {
         character_id: characterId
       }
-    },
-    include: {
-      artist: true,
-      description: {
-        include: {
-          character: true,
-          rarity: true
-        }
-      },
-      type: true
-    }
-  });
-}
-
-
-// get cards of a description
-const getDescriptionCards = async (descriptionId: number) => {
-  return prisma.card.findMany({
-    where: {
-      description_id: descriptionId
     },
     include: {
       artist: true,
