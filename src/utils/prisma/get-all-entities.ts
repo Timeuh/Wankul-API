@@ -76,5 +76,5 @@ const getRarities = async () => {
 
 // get all types from database
 const getTypes = async () => {
-  return prisma.type.findFirst();
+  return prisma.type.findMany();
 };
