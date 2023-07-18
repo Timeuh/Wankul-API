@@ -13,6 +13,7 @@ export type CardsResponse<T extends Model> = {
   links: {
     self: string,
     all: string,
+    cards: string
   },
   cards: {
     type: string,

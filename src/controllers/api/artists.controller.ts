@@ -18,7 +18,8 @@ module.exports.getArtistById = async (request: Request, response: Response) => {
       artist: artist,
       links: {
         self: `/api/artist/${request.params.id}`,
-        all: '/api/artist/'
+        all: '/api/artist/',
+        cards: `/api/artist/${request.params.id}/cards`
       }
     });
   } catch (error: any){
@@ -61,7 +62,8 @@ module.exports.getArtistCards = async (request: Request, response: Response) => 
       artist: artistCards[0].artist,
       links: {
         self: `/api/artist/${artistCards[0].artist.id}`,
-        all: '/api/artist/'
+        all: '/api/artist/',
+        cards: `/api/artist/${request.params.id}/cards`
       },
       cards:{
         type: 'collection',
