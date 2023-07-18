@@ -15,8 +15,8 @@ module.exports.getEntityCards = async (request: Request, entityName: Model) => {
   const entityCards = await getEntityCards(request, entityName);
 
   // if the entity doesn't exist
-  if (!entityCards){
-    throw new Error(`RequestError : cards of ${entityName} don't exist !`);
+  if (entityCards?.length === 0){
+    throw new Error(`RequestError : cannot find cards for this ${entityName} !`);
   }
 
   // return the entity related cards
