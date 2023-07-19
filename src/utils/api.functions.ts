@@ -69,13 +69,21 @@ module.exports.fillResponseForAllEntities = (entities: Array<any>, schema: any, 
 module.exports.fillResponseWithCards = <ModelKey extends Model>(responseObject: CardsResponse<ModelKey>, cards: Array<Card>) => {
   cards.forEach((card: Card) => {
     // delete unwanted properties
-    delete card.description_id;
-    delete card.type_id;
-    delete card.artist_id;
-    delete card.description.character_id;
-    delete card.description.rarity_id;
+    module.exports.deleteCardProperties(card);
 
     // push into response object
     responseObject.cards.cards.push(card);
   });
+}
+
+// delete unwanted card properties
+module.exports.deleteCardProperties = (card: Card) => {
+  delete card.description_id;
+  delete card.type_id;
+  delete card.artist_id;
+  delete card.description.character_id;
+  delete card.description.rarity_id;
+  if (card.description.character?.id === -1){
+    delete card.description.character;
+  }
 }
