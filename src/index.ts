@@ -53,7 +53,7 @@ app.use('/api/type', require('./routes/api/types.routes'));
 // call api routes to treat card related requests
 app.use('/api/card', require('./routes/api/cards.routes'));
 
-// call api routes to treat card related requests
+// call api routes to treat images related requests
 app.use('/api/image', require('./routes/api/images.routes'));
 
 // run server with provided port
