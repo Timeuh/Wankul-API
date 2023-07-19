@@ -18,7 +18,7 @@ export type CardsResponse<T extends Model> = {
   cards: {
     type: string,
     length: number,
-    cards: Card[]
+    cards: any[]
   },
 }
 
