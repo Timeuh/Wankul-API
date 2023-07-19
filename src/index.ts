@@ -12,6 +12,8 @@ const port = 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static('public'));
+
 // call routes to treat auth related requests
 app.use('/auth', require('./routes/backend/auth.routes'));
 
@@ -50,6 +52,9 @@ app.use('/api/type', require('./routes/api/types.routes'));
 
 // call api routes to treat card related requests
 app.use('/api/card', require('./routes/api/cards.routes'));
+
+// call api routes to treat card related requests
+app.use('/api/image', require('./routes/api/images.routes'));
 
 // run server with provided port
 app.listen(port, () => {
