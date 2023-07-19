@@ -48,6 +48,9 @@ app.use('/api/rarity', require('./routes/api/rarities.routes'));
 // call api routes to treat type related requests
 app.use('/api/type', require('./routes/api/types.routes'));
 
+// call api routes to treat card related requests
+app.use('/api/card', require('./routes/api/cards.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
