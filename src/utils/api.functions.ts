@@ -83,7 +83,4 @@ module.exports.deleteCardProperties = (card: Card) => {
   delete card.artist_id;
   delete card.description.character_id;
   delete card.description.rarity_id;
-  if (card.description.character?.id === -1){
-    delete card.description.character;
-  }
 }

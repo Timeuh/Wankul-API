@@ -44,7 +44,7 @@ export type Card = {
     effect: string,
     citation: string,
     rarity_id?: number,
-    character?: {
+    character: {
       id: number,
       name: string
     },
