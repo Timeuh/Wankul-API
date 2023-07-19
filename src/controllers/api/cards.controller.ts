@@ -52,6 +52,7 @@ module.exports.getCardById = async (request: Request, response: Response) => {
       links: {
         self: `/api/card/${request.params.id}`,
         all: '/api/card/',
+        image: `/api/image/${card.image}`
       }
     });
   } catch (error: any){
@@ -103,6 +104,7 @@ module.exports.getAllCards = async (request: Request, response: Response) => {
         links: {
           self: `/api/card/${card.id}`,
           all: `/api/card/`,
+          image: `/api/image/${card.image}`
         }
       });
     });
