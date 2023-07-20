@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "server": "nodemon src/index.ts",
-    "vercel-build": "echo hello"
+    "vercel-build": "prisma generate"
   },
   "keywords": [],
   "author": "Timeuh",
