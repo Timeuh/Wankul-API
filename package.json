@@ -4,7 +4,8 @@
   "description": "Api for Wankul cards display site (unofficial)",
   "main": "src/index.ts",
   "scripts": {
-    "server": "nodemon src/index.ts"
+    "server": "nodemon src/index.ts",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "Timeuh",
