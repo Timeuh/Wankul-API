@@ -1,6 +1,6 @@
 export{}
 
-const {getCharacterById, getAllCharacters, getCharacterCards} = require("../../controllers/api/Characters.controller");
+const {getCharacterById, getAllCharacters, getCharacterCards} = require("../../controllers/api/characters.controller");
 const router = require('express').Router();
 
 // route to get a character by id
