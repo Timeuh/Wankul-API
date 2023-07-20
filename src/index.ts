@@ -60,3 +60,5 @@ app.use('/api/image', require('./routes/api/images.routes'));
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
 });
+
+module.exports = app;
