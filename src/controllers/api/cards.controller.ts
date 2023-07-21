@@ -78,6 +78,9 @@ module.exports.getAllCards = async (request: Request, response: Response) => {
           }
         },
         type: true
+      },
+      orderBy:{
+        id: 'asc'
       }
     }) as Card[];
 

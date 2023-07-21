@@ -49,32 +49,56 @@ const getEntities = async (request: Request, entityName: Model) => {
 
 // get all artists from database
 const getArtists = async () => {
-  return prisma.artist.findMany();
+  return prisma.artist.findMany({
+    orderBy:{
+      id: 'asc'
+    }
+  });
 };
 
 // get all cards from database
 const getCards = async () => {
-  return prisma.card.findMany();
+  return prisma.card.findMany({
+    orderBy:{
+      id: 'asc'
+    }
+  });
 };
 
 // get all characters from database
 const getCharacters = async () => {
-  const characters = await prisma.character.findMany();
+  const characters = await prisma.character.findMany({
+    orderBy:{
+      id: 'asc'
+    }
+  });
   return characters.filter((character) => character.id !== -1);
 };
 
 
 // get all descriptions from database
 const getDescriptions = async () => {
-  return prisma.description.findMany();
+  return prisma.description.findMany({
+    orderBy:{
+      id: 'asc'
+    }
+  });
 };
 
 // get all rarities from database
 const getRarities = async () => {
-  return prisma.rarity.findMany();
+  return prisma.rarity.findMany({
+    orderBy:{
+      id: 'asc'
+    }
+  });
 };
 
 // get all types from database
 const getTypes = async () => {
-  return prisma.type.findMany();
+  return prisma.type.findMany({
+    orderBy:{
+      id: 'asc'
+    }
+  });
 };

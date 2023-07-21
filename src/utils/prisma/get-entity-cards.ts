@@ -61,6 +61,9 @@ const getArtistCards = async (artistId: number) => {
         }
       },
       type: true
+    },
+    orderBy:{
+      id: 'asc'
     }
   });
 }
@@ -82,6 +85,9 @@ const getCharacterCards = async (characterId: number) => {
         }
       },
       type: true
+    },
+    orderBy:{
+      id: 'asc'
     }
   });
 }
@@ -103,6 +109,9 @@ const getRarityCards = async (rarityId: number) => {
         }
       },
       type: true
+    },
+    orderBy:{
+      id: 'asc'
     }
   });
 }
@@ -122,6 +131,9 @@ const getTypeCards = async (typeId: number) => {
         }
       },
       type: true
+    },
+    orderBy:{
+      id: 'asc'
     }
   });
 }
