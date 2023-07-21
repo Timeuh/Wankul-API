@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
-import path from 'path';
-import fs from 'fs';
+
+const path = require('path');
+const fs = require('fs');
 
 // get a type from an id
 module.exports.getImage = async (request: Request, response: Response) => {
@@ -16,16 +17,16 @@ module.exports.getImage = async (request: Request, response: Response) => {
     // create image path
     const imagePath = path.join(__dirname, '../../../public/images', request.params.imageName);
 
-    // Vérifier si le fichier image existe
+    // check if file exists
     fs.access(imagePath, fs.constants.F_OK, (err: any) => {
       if (err) {
-        // Le fichier n'existe pas, renvoyer une réponse 404 Not Found
+        // if the file is not found
         return response.status(404).send({
           code: 404,
           message: 'RequestError : can not find this image !'
         });
       } else {
-        // Le fichier existe, renvoyer l'image en tant que réponse
+        // return the file as response
         return response.sendFile(imagePath);
       }
     });
