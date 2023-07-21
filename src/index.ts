@@ -56,6 +56,9 @@ app.use('/api/card', require('./routes/api/cards.routes'));
 // call api routes to treat images related requests
 app.use('/api/image', require('./routes/api/images.routes'));
 
+// call api routes to treat images related requests
+app.use('/', require('./routes/home.routes'));
+
 // run server with provided port
 app.listen(port, () => {
   console.log(`Server up on port ${port}`);
