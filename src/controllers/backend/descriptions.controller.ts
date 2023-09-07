@@ -25,7 +25,10 @@ module.exports.createDescription = async (request: Request, response: Response) 
     // return error if insertion fails
     return response.status(500).json({
       code: 500,
-      error: JSON.stringify(error)
+      error: {
+        data: error.data,
+        message: error.message,
+      }
     });
   }
 }
