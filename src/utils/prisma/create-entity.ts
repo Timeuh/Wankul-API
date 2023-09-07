@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 // create an entity
 module.exports.createEntity = async (request: Request, schema: any, entityName: Model) => {
   // validate request body data
-  const validatedEntity = validate(schema, JSON.parse(request.body));
+  const validatedEntity = validate(schema, request.body);
 
   // check if object already is in database
   await checkExistence(entityName, validatedEntity);
