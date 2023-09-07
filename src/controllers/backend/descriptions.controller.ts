@@ -26,7 +26,7 @@ module.exports.createDescription = async (request: Request, response: Response) 
     return response.status(500).json({
       code: 500,
       error: {
-        data: error.data,
+        data: error.description,
         message: error.message,
       }
     });
