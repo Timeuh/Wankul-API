@@ -3,10 +3,6 @@
     {
       "name": "wankuldex-api",
       "script": "./src/index.ts",
-      "merge_logs": true,
-      "max_restarts": 20,
-      "instances": 4,
-      "max_memory_restart": "200M",
       "env": {
         "PORT": 5000,
         "NODE_ENV": "production"
