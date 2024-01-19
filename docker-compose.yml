@@ -16,7 +16,12 @@ services:
     tty: true
     env_file:
       - .env
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wankuldex-api.rule=Host(`wankuldex-api.timeuh.fr`)"
+      - "traefik.http.routers.wankuldex-api.entrypoints=websecure"
+      - "traefik.http.routers.wankuldex-api.tls.certresolver=myresolver"
+      - "traefik.http.services.api-service.loadbalancer.server.port=5000"
 
   database:
     image: postgres:latest
