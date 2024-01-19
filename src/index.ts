@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 // init dotenv config
 dotenv.config();
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static('public'));
+
+app.use(cors());
 
 // call routes to treat auth related requests
 app.use('/auth', require('./routes/backend/auth.routes'));
