@@ -12,13 +12,10 @@ services:
       - "54112:5000"
     networks:
       - traefik_web
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.wankuldex.rule=Host(`wankuldex-api.timeuh.fr`)"
-      - "traefik.http.routers.wankuldex.entrypoints=websecure"
-      - "traefik.http.routers.wankuldex.certresolver=myresolver"
-    command: node api/index.ts
+    command: npm run pm2
     tty: true
+    env_file:
+      - .env
 
 
   database:
@@ -29,6 +26,8 @@ services:
       - "54113:5432"
     networks:
       - traefik_web
+    env_file:
+      - .env
 
   adminer:
     image: adminer:latest
