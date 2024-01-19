@@ -4,6 +4,7 @@
   "description": "Api for Wankul cards display site (unofficial)",
   "main": "src/index.ts",
   "scripts": {
+    "pm2": "pm2 start processes.json --no-daemon",
     "server": "nodemon src/index.ts",
     "vercel-build": "prisma generate"
   },
