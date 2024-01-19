@@ -42,6 +42,12 @@ services:
       - "54114:8080"
     networks:
       - traefik_web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.admin-wankuldex-api.rule=Host(`admin.wankuldex-api.timeuh.fr`)"
+      - "traefik.http.routers.admin-wankuldex-api.entrypoints=websecure"
+      - "traefik.http.routers.admin-wankuldex-api.tls.certresolver=myresolver"
+
 
 networks:
   traefik_web:
