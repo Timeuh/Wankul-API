@@ -27,8 +27,6 @@ services:
     image: postgres:latest
     container_name: wankuldex-api-database
     restart: always
-    ports:
-      - "54113:5432"
     networks:
       - traefik_web
     env_file:
