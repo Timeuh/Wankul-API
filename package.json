@@ -7,7 +7,7 @@
     "pm2": "pm2 start processes.json --no-daemon",
     "server": "nodemon src/index.ts",
     "vercel-build": "prisma generate",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build"
   },
   "keywords": [],
   "author": "Timeuh",
