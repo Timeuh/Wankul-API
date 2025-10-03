@@ -1,4 +1,4 @@
-verservices:
+services:
   api:
     image: node:latest
     container_name: wankuldex-api-node-test
