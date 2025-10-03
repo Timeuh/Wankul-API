@@ -1,4 +1,4 @@
-services:
+verservices:
   api:
     image: node:latest
     container_name: wankuldex-api-node-test
@@ -10,7 +10,7 @@ services:
       - "54112:5000"
     networks:
       - dokploy-network
-    command: npm run pm2
+    command: npm run server
     tty: true
     env_file:
       - .env
