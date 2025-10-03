@@ -67,7 +67,7 @@ const getCards = async () => {
 
 // get all characters from database
 const getCharacters = async () => {
-  const characters = await prisma.character.findMany({
+  const characters: [] = await prisma.character.findMany({
     orderBy:{
       id: 'asc'
     }
