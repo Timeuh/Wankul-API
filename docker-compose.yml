@@ -9,7 +9,7 @@ services:
     ports:
       - "54112:5000"
     networks:
-      - dokploy
+      - dokploy-network
     command: npm run pm2
     tty: true
     env_file:
@@ -20,7 +20,7 @@ services:
     container_name: wankuldex-api-database-test
     restart: unless-stopped
     networks:
-      - dokploy
+      - dokploy-network
     env_file:
       - .env
 
@@ -31,9 +31,9 @@ services:
     ports:
       - "54114:8080"
     networks:
-      - dokploy
+      - dokploy-network
 
 
 networks:
-  dokploy:
+  dokploy-network:
     external: true
