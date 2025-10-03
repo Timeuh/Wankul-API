@@ -1,7 +1,7 @@
 services:
   api:
     image: node:latest
-    container_name: wankuldex-api-node
+    container_name: wankuldex-api-node-test
     restart: unless-stopped
     working_dir: /app
     volumes:
@@ -17,7 +17,7 @@ services:
 
   database:
     image: postgres:latest
-    container_name: wankuldex-api-database
+    container_name: wankuldex-api-database-test
     restart: unless-stopped
     networks:
       - dokploy
@@ -26,7 +26,7 @@ services:
 
   adminer:
     image: adminer:latest
-    container_name: wankuldex-api-adminer
+    container_name: wankuldex-api-adminer-test
     restart: unless-stopped
     ports:
       - "54114:8080"
