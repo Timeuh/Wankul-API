@@ -5,9 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "pm2": "pm2 start processes.json --no-daemon",
-    "server": "nodemon src/index.ts",
+    "server": "nodemon dist/index.js",
     "vercel-build": "prisma generate",
-    "build": "tsc -b && vite build"
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "Timeuh",
